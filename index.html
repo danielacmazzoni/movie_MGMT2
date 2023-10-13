@@ -7,62 +7,7 @@
     <style>
          body {
             font-family: Courier New, sans-serif;
-            background: linear-gradient(to left, #00245d 10%, #0066cc 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            }
-
-        h1 {
-            color: white;
-            text-align: center;
-            font-size: 45px;
-        }
-        .centered-section {
-            display: flex;
-            flex-direction: row; /* Set elements on the same line */
-            align-items: center;
-            text-align: center;
-        }
-        .watched-section {
-            display: flex;
-            align-items: center;
-        }
-        .large-checkbox {
-            width: 25px; /* Set the width of the checkbox */
-            height: 25px; /* Set the height of the checkbox */
-        }
-
-        input[type="checkbox"] {
-            margin-right: 5px; /* Add some space to separate the checkbox and text */
-        }
-
-        h2 {
-            color: white;
-            text-align: center;
-
-        }
-        h3{
-            color: white;
-            text-align: center;
-
-        }
-        p {
-            text-align: center;
-            color: white;
-            font-size: 18px;
-            line-height: 1;
-            margin: 10p<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Universe</title>
-    <style>
-         body {
-            font-family: Courier New, sans-serif;
-            background: linear-gradient(to left, #00245d 0%, #0066cc 100%);
+            background: linear-gradient(to left, #00245d 40%, #0066cc 120%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -166,8 +111,7 @@
             padding: 5px; /* Add some padding for spacing */
             margin: 5px; /* Add margin for spacing between elements */
         }
-
-  .image1{
+        .image1{
 position: absolute;
    top: 5px;
    left: 180px;
@@ -195,6 +139,7 @@ position: absolute;
     25% { transform: rotate(-5deg); }
     0% { transform: rotate(0deg); }
 }
+
     </style>
 </head>
 <body>
@@ -232,10 +177,10 @@ position: absolute;
 </div>
 <br>
 <button type="button" id="addMovieButton">add movie!</button>
+<p id="ratingError" style="display: none;">please enter a number between 1 and 5 for the rating! :(</p>
 
 
 <div id="result"></div>
-<p id="ratingError" style="display: none;">please enter a number between 1 and 5 for the rating! :(</p>
 
 <div id="addedMovieSection" style="display: none;">
     <h2>recently added movie:</h2>
@@ -255,218 +200,6 @@ position: absolute;
         <!-- Unwatched movies will be displayed here -->
     </ul>
 </div>
-
-
-<script src="script.js"></script>
-<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const addMovieButton = document.getElementById('addMovieButton');
-            const addedMovieSection = document.getElementById('addedMovieSection');
-            const addedMovieTitle = document.getElementById('addedMovieTitle');
-            const addedMovieRating = document.getElementById('addedMovieRating');
-            const addedMovieWatched = document.getElementById('addedMovieWatched');
-            const result = document.getElementById('result');
-            const watchedMovieList = document.getElementById('watchedMovieList');
-            const unwatchedMovieList = document.getElementById('unwatchedMovieList');
-            const ratingError = document.getElementById('ratingError');
-
-            addMovieButton.addEventListener('click', () => {
-                const title = document.getElementById('movieTitle').value;
-                const rating = parseFloat(document.getElementById('movieRating').value);
-                const haveWatched = document.getElementById('movieWatched').checked;
-
-                // Validate the rating input
-                if (isNaN(rating) || rating < 1 || rating > 5) {
-                    ratingError.style.display = 'block';
-                    return;
-                }
-
-                // Hide the rating error message if it was displayed
-                ratingError.style.display = 'none';
-
-                // Create a new movie object and add it to the array
-                const newMovie = new Movie(title, rating, haveWatched);
-                addMovie(newMovie);
-
-                // Display the summary of the recently added movie
-                addedMovieTitle.textContent = title;
-                addedMovieRating.textContent = rating;
-                addedMovieWatched.textContent = haveWatched ? "watched" : "not Watched";
-                addedMovieSection.style.display = 'block';
-
-                // Add the user's input to the appropriate list
-                const movieInfo = `${title}, Rating: ${rating}, Watched: ${haveWatched ? "yes" : "no"}`;
-                const movieElement = document.createElement('li');
-                movieElement.textContent = movieInfo;
-                if (haveWatched) {
-                    watchedMovieList.appendChild(movieElement);
-                } else {
-                    unwatchedMovieList.appendChild(movieElement);
-                }
-
-                // Clear the input fields
-                document.getElementById('movieTitle').value = '';
-                document.getElementById('movieRating').value = '';
-                document.getElementById('movieWatched').checked = false;
-
-                // Refresh the movie display
-                printMovies();
-            });
-
-            // Display movie information when the page loads
-            printMovies();
-        });
-    </script>
-</body>
-</html>
-x 0;
-}
-p2{
-color: white;
-font-weight: regular;
-font-size: 18px;
-
-}
-button {
-font-size: 15px;
-background-color: #0065A4;
-color: #fff;
-border: none;
-padding: 8px 25px;
-cursor: pointer;
-border: 2px solid #ccc;
-border-radius: 20px;
-
-
-}
-button:hover {
-background-color: black;
-color: white;
-}
-/* Styling for error message */
-#ratingError {
-color: #FFD200;
-text-align: center;
-
-}
-/* Styling for movie history lists */
-ul {
-list-style-type: none;
-padding: 0;
-}
-li {
-background-color: #00112b;
-color: #e0ecff;
-margin: 5px;
-padding: 15px;
-border: 2px solid #ccc;
-border-radius: 20px;
-}
-li:hover {
-background-color: #00245D;
-color: white;
-}
-.large-checkbox {
-width: 25px; /* Set the width of the checkbox */
-height: 25px; /* Set the height of the checkbox */
-}
-
-/* Additional styles for the larger text input boxes */
-.large-text-input {
-width: 200px; /* Set the width of the text input boxes */
-padding: 5px; /* Add some padding for spacing */
-margin: 5px; /* Add margin for spacing between elements */
-}
-
-.image1{
-position: absolute;
-top: 5px;
-left: 180px;
-animation: shake .5s;
-animation-iteration-count: infinite;
-}
-@keyframes shake {
-0% { transform: rotate(0deg); }
-25% { transform: rotate(5deg); }
-50% { transform: rotate(0deg); }
-75% { transform: rotate(-5deg); }
-100% { transform: rotate(0deg); }
-}
-.image2{
-position: absolute;
-top: 5px;
-left: 920px;
-animation: shake .5s;
-animation-iteration-count: infinite;
-}
-@keyframes shake {
-100% { transform: rotate(0deg); }
-75% { transform: rotate(5deg); }
-50% { transform: rotate(0deg); }
-25% { transform: rotate(-5deg); }
-0% { transform: rotate(0deg); }
-}
-</style>
-</head>
-<body>
-<br>
-<br>
-<h1>movie universe! <3</h1>
-<img src="https://lh3.googleusercontent.com/pw/ADCreHdkaic7nMICYX6kHRxPazzw_YJ9LISWmU6L5QEMWHa_pMCV4VDAFaIzp6Hdca7yxcnOvMWbrlnzcXlcH0BHicG5YrG00ngNHANSSuLLfr3r2fgEh48=w2400?source=screenshot.guru" style="width:250px;height:180px;" class = "image1"></img>
-<img src="https://lh3.googleusercontent.com/pw/ADCreHdkaic7nMICYX6kHRxPazzw_YJ9LISWmU6L5QEMWHa_pMCV4VDAFaIzp6Hdca7yxcnOvMWbrlnzcXlcH0BHicG5YrG00ngNHANSSuLLfr3r2fgEh48=w2400?source=screenshot.guru" style="width:250px;height:180px;" class = "image2"></img>
-
-<br><br>
-
-<p>welcome to <b>movie universe</b>, where cinematic magic meets your fingertips!
-    <br>
-    <br>
-    we've created a hub for <b>movie enthusiasts</b> like <b>you</b>.
-    <br>
-    <br>
-    whether you're a seasoned movie buff or just embarking on your cinematic journey,<br>
-    <b>movie universe</b> is your go-to destination for managing, exploring, and sharing your movie experiences.
-    <br>
-    <br>
-    discover new films, curate your watchlist, and keep tabs on your personal movie history.
-    <br>
-    <br>
-    come dive into the world of movies with <b>movie universe</b>!</p>
-<br>
-
-<br>
-<input type="text" id="movieTitle" class="large-text-input" placeholder="movie title">
-<input type="number" id="movieRating" class="large-text-input" placeholder="movie rating (1 to 5)">
-<br>
-<div class="watched-section">
-    <input type="checkbox" id="movieWatched" class="large-checkbox" checked>
-    <label for="movieWatched" id="watchedLabel"><p2>watched</p2></label>
-</div>
-<br>
-<button type="button" id="addMovieButton">add movie!</button>
-
-
-<div id="result"></div>
-<p id="ratingError" style="display: none;">please enter a number between 1 and 5 for the rating! :(</p>
-
-<div id="addedMovieSection" style="display: none;">
-    <h2>recently added movie:</h2>
-    <p>title: <span id="addedMovieTitle"></span></p>
-    <p>rating: <span id="addedMovieRating"></span></p>
-    <p>watched: <span id="addedMovieWatched"></span></p>
-</div>
-
-<div id="movieHistory">
-    <h2>your movie history :)</h2>
-    <h3>watched movies:</h3>
-    <ul id="watchedMovieList">
-        <!-- Watched movies will be displayed here -->
-    </ul>
-    <h3>unwatched movies:</h3>
-    <ul id="unwatchedMovieList">
-        <!-- Unwatched movies will be displayed here -->
-    </ul>
-</div>
-
 
 <script src="script.js"></script>
 <script>
